@@ -1,0 +1,33 @@
+Riforma copyright, scritto il testo finale. Cosa cambia con gli articoli 11 e 13.
+
+La riforma del diritto d'autore arriva alle battute finali e potrebbe cambiare la condivisione dei contenuti, ma il voto del Parlamento può ancora rimescolare le carte.
+
+Il testo finale della riforma europea sul diritto d’autore è stato approvato ieri durante la negoziazione tra il Parlamento, il Consiglio e la Commissione europei, accettando di fatto la proposta messa in piedi da Germania e Francia; con gli Articoli 11 e 13 ad attirare tutta l’attenzione e che potrebbero cambiare la condivisione dei contenuti digitali così come la conosciamo.
+
+Di cosa stiamo parlando?
+Tutto è cominciato nel 2016, quando l’allora Commissario per l’economia e le società digitali, Günther Oettinger, presentò una relazione tecnica che, in nuce, era il primo vagito della riforma sul diritto d’autore, e si proponeva di rimodulare il funzionamento delle regole del copyright all’interno della comunità europea, concentrandosi in modo speciale sui contenuti online e sul mercato dei diritti d’autore.
+
+Si iniziava a dire che i fornitori di contenuti digitali avrebbero dovuto pagare i titolari dei diritti del materiale diffuso, e che avrebbe riguardato non solo le piattaforme social ma anche gli aggregatori di notizie come Google o Flipboard, per esempio. Le accuse mosse a Oettinger furono quelle di stare dalla parte delle grandi industrie musicali e cinematografiche che a loro volta accusavano YouTube di monetizzare il suo servizio attraverso materiale caricato dai propri utenti e di cui non possedeva i diritti. In questa guerra però ci sarebbero finiti anche i piccoli editori, che non sarebbero riusciti a fare fronte all’accertamento delle violazioni e che non avrebbero disposto di economie tali da permettere il pagamento delle licenze d’uso del materiale registrato.
+
+La riforma sul diritto d’autore si è dunque evoluta nel corso di questi tre anni attraverso commissioni di lavoro, riunioni e anche chiacchierate revoche delle stesse, avendo come fulcro della discussione gli Articoli 11 e 13.
+
+Cosa sono gli Articoli 11 e 13?
+L’Articolo 11, chiamato anche “Link Tax”, prevede l’obbligo per le piattaforme online che pubblicano anteprime degli articoli di giornale di ottenere una licenza preventiva da parte del detentore dei diritti. Pagare gli editori, insomma.
+
+Per capirci, si tratta dei frammenti giornalistici pubblicati da Google nella sezione Notizie del suo motore di ricerca, ma anche tutte le anteprime generate quando sui social gli utenti condividono dei link che mostrano un titolo, una foto d’anteprima e un sommario. L’intento è quello di generare proventi per gli editori europei, che possono soffrire della vista “mordi e fuggi” sul motore di ricerca e che, non generando una visita sul sito di news, porterebbe benefici solo a colui che mostra l’anteprima, come Google o Facebook, per esempio. L’Articolo 11 si applicherebbe però anche a quegli stessi editori che l’Europa vuole proteggere e che magari costruiscono una notizia raggruppando e collegando fonti diverse.
+
+La versione finale del testo dice che la riproduzione di “singole parole o estratti brevissimi” di contenuti di news richiederanno l’acquisto di una licenza presso i titolari degli stessi; senza però specificare in un dato misurabile l’entità di quegli “estratti brevissimi” e che potrebbe portare a incertezze nell'interpretazione della legge.
+
+Il testo specifica anche che non ci saranno eccezioni. L’acquisizione della licenza sarà obbligatoria per tutti, che siano piccole società, o non-profit, o blog scritti da una sola persona.
+
+L’Articolo 13 riguarda invece l’obbligo da parte delle piattaforme online di controllare il contenuto caricato dagli utenti usando filtri preventivi che escludano la pubblicazione di materiale protetto da copyright. Tuttavia, il testo esclude espressamente tutti i contenuti pubblicati dagli utenti riconducibili alla satira, alle caricature, alle parodie, alle critiche e alle recensioni. È però evidente, data l'entità della verifica, che i controlli debbano essere affidati ad algoritmi automatici che potrebbero non essere in grado di capire la differenza tra un meme e l'uso illegale di una licenza, eliminando ciò che la stessa legge prevede come eccezione.
+
+La versione finale dell’Articolo 13 ha incluso l’accordo raggiunto da Germania e Francia e che è stato proposto una settimana fa come modifica al testo. I siti a scopo di lucro e le app i cui utenti possono pubblicare contenuti, devono produrre il “massimo impegno” per acquistare preventivamente le licenze di tutto ciò che gli utenti potrebbero caricare. (Di fatto, un compito impossibile).
+
+Inoltre, nel caso in cui un tribunale ritenga che l’impegno messo nell’ottenimento preventivo delle licenze e nel loro filtraggio da parte delle entità online non sia stato abbastanza incisivo, le stesse saranno ritenute direttamente responsabili delle infrazioni commesse.
+
+Vengono escluse dalla responsabilità dirette le realtà online che non abbiano più di tre anni di vita e con un fatturato annuo inferiore ai 10 milioni di euro, che tuttavia devono agire rapidamente, dopo avere ricevuto un avviso motivato, nella rimozione delle opere oggetto della notifica o disabilitare l’accesso alle stesse. Se il numero medio di visitatori unici mensili supera i 5 milioni, dovranno dimostrare inoltre di essersi adoperate al meglio per evitare upload di contenuti protetti da copyright.
+
+La riforma ormai è scritta ed è un testo finito, ma deve passare l’approvazione della Commissione per gli Affari Legali, prevista per il 18 febbraio, e quello del Consiglio Europeo, per poi giungere alla votazione plenaria del Parlamento che dovrebbe svolgersi tra la fine di marzo e i primi di aprile.
+
+
