@@ -1,4 +1,8 @@
 package it.uniroma3.IR.service;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +17,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -34,6 +36,29 @@ public class Indicizzatore {
         this.memoryIndex = memoryIndex;
         this.analyzer = analizzatore;
     }
+    
+    public void indicizzaCartella(String PathCartella) throws Exception{
+    	File file= new File("/IR_text_system/src/main/resources/static/Articoli");
+    	File[] fileArray = file.listFiles();
+    	String corpo;
+    	String line;
+    	
+    	for (File f: fileArray) {
+    		corpo= ""; 
+    		System.out.println("caricamento del file"+ f.toString()+"...");                  
+    		FileReader fReader= new FileReader(f);                                                         //fileReader prende il path, versione polimorfa ???
+    		BufferedReader reader = new BufferedReader(fReader);
+    		
+    		line= reader.readLine();
+    		while (line!=null) {
+    			corpo += line;
+    			line= reader.readLine();
+    		}
+    		reader.close();
+    		this.indicizzaDocumenti(f.getName(), corpo);
+    	}
+    }
+    
     
     public void indicizzaDocumenti(String titolo, String corpo) {
 
