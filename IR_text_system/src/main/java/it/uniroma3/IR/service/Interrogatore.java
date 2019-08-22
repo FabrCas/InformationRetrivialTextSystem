@@ -29,7 +29,7 @@ public class Interrogatore {
 	}
 	
 	
-	public TopDocs searchInContent(String testoRicerca) throws Exception {
+	public void searchInContent(String testoRicerca) throws Exception {
 		
 		//creo la query di ricerca 
 		QueryParser qp= new QueryParser("contenuto", new StandardAnalyzer());
@@ -39,7 +39,6 @@ public class Interrogatore {
 		TopDocs hits= this.searcher.search(query,NUM_RESULT);
 		
 		this.risposta= new Risposta(hits);
-		return hits;
 	}
 	
 	
