@@ -3,12 +3,17 @@ package it.uniroma3.IR.service;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import javax.swing.SortOrder;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
+import org.apache.lucene.search.SortedNumericSortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -35,8 +40,9 @@ public class Interrogatore {
 		QueryParser qp= new QueryParser("contenuto", new StandardAnalyzer());
 		Query query= qp.parse(testoRicerca);
 		
-		//cerco l'indice 
-		TopDocs hits= this.searcher.search(query,NUM_RESULT);
+		//cerco l'indice (ordinato) 
+		Sort sort= new Sort (new SortedNumericSortField("title", SortField.Type.STRING));
+		TopDocs hits= this.searcher.search(query,NUM_RESULT, sort);
 		
 		this.risposta= new Risposta(hits);
 	}
