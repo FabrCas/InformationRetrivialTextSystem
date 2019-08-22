@@ -24,10 +24,12 @@ import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.BytesRef;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Indicizzatore {
 	
     private Directory memoryIndex;
+    @Autowired
     private Analyzer analyzer;
 
 
@@ -87,44 +89,6 @@ public class Indicizzatore {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-    public List<Document> RicercaInIndice(Query query) {
-        try {
-            IndexReader indexReader = DirectoryReader.open(memoryIndex);
-            IndexSearcher searcher = new IndexSearcher(indexReader);
-            TopDocs topDocs = searcher.search(query, 100);
-            List<Document> documents = new ArrayList<>();
-            for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-                documents.add(searcher.doc(scoreDoc.doc));
-            }
-
-            return documents;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-    
-    //versione polimorfa con ordinamento
-    
-    public List<Document> RicercaInIndice(Query query, Sort sort) {
-        try {
-            IndexReader indexReader = DirectoryReader.open(memoryIndex);
-            IndexSearcher searcher = new IndexSearcher(indexReader);
-            TopDocs topDocs = searcher.search(query, 10, sort);
-            List<Document> documents = new ArrayList<>();
-            for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-                documents.add(searcher.doc(scoreDoc.doc));
-            }
-
-            return documents;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
     }
     
 }
