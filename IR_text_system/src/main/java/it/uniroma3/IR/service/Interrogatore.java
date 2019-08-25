@@ -17,9 +17,9 @@ import org.apache.lucene.search.SortedNumericSortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class Interrogatore {
 	
 //passa le query all'indicizzatore
@@ -40,7 +40,7 @@ public class Interrogatore {
 		}
 	}
 	
-	@Bean
+	
 	public void searchInContent(String testoRicerca) throws Exception {
 		
 		//creo la query di ricerca 
@@ -54,7 +54,7 @@ public class Interrogatore {
 		this.risposta= new Risposta(hits);
 	}
 	
-	@Bean
+	
 	private IndexSearcher creaSearcher() throws IOException{
 		
 		Directory dir= FSDirectory.open(Paths.get(INDEX_DIR));
@@ -66,7 +66,7 @@ public class Interrogatore {
 		IndexSearcher searcher= new IndexSearcher (reader);
 		return searcher;
 	}
-	@Bean
+	
 	public Risposta getRisposta () {
 		return this.risposta;
 	}

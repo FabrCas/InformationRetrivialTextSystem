@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.IR.service.Indicizzatore;
+import it.uniroma3.IR.service.Interrogatore;
 
 @Controller
 public class mainController {
@@ -13,13 +14,24 @@ public class mainController {
 	@Autowired(required=true)
 	private Indicizzatore indicizzatore;
 	
+	@Autowired
+	private Interrogatore interrogatore;
+	
+	
 	//Indicizzazione dei documenti
 	@RequestMapping(value="/toIndex", method= RequestMethod.POST)
 	public String toIndex() throws Exception {
 		this.indicizzatore.indicizzaCartella();
 		return "conferma.html";
 	}
-
+	
+	//ricerca nei documenti
+	@RequestMapping(value="/toFind", method= RequestMethod.POST)
+	public String toFind() throws Exception{
+		//TODO
+		return "dddf";
+	}
+	
 	//vista dei documenti 
 	@RequestMapping(value="/toDoc1")
 	public String toDoc1() {

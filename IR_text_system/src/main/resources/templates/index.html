@@ -26,11 +26,20 @@ Documenti presenti per la ricerca:
 <a href="/toDoc4"> doc4: L'articolo 11 e 13  </a>
 </h1>
 <div>
-<h1>
-Premi per indicizzare i documenti (operazone di aggiornamento)
-</h1>
-<form th:action="@{/toIndex}" method="POST">
+
+<h2>
+Premi sotto per indicizzare i documenti (operazone di aggiornamento)
+</h2>
+<form id="indexing" th:action="@{/toIndex}" method="POST">
 <input type="submit" name="index" value="procedi"/>
+</form>
+
+<h2>
+Ricerca:
+</h2>
+<form id="search_form" th:action="@{/toFind}" method="POST">
+	<label>Ricerca <input id="search_input" size="30" name="keyword" /></label>
+	<input type="image" src="/src/main/resources/static/images/magnifying_glass.png" />
 </form>
 </div>
 </body>
