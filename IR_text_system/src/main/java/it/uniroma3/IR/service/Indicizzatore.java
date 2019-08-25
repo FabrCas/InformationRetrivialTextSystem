@@ -20,6 +20,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
+import org.springframework.stereotype.Component;
 
 /*tutti i file nella cartella "inputFiles" verranno indicizzati.
 creiamo 3 campi:
@@ -27,15 +28,15 @@ creiamo 3 campi:
 -title: il titolo del file [Field.Store.YES]
 -contents: il contenuto del file [Field.Store.YES]
 */
-
+@Component
 public class Indicizzatore {
 	
 	/* folders, paths*/
 	//output folder
-	private static final String INDEX_DIR= "static/indexedFiles";
+	private static final String INDEX_DIR= "src/main/resources/static/indexedFiles";
 	private Directory dirIndexedFiles;
 	//input folder
-	private static final String INPUT_DIR="static/inputFiles";
+	private static final String INPUT_DIR="src/main/resources/static/inputFiles";
 	
 	
 	/*lucene's classes*/
@@ -55,6 +56,7 @@ public class Indicizzatore {
 			this.iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);                              //Creates a new index if one does not exist, otherwise it opens the index and documents will be appended.
 			//l'indexWriter, scrive nuovi index file per la cartella "static/indexedFiles"
 			this.writer= new IndexWriter(dirIndexedFiles, iwc);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,8 +65,8 @@ public class Indicizzatore {
     public void indicizzaCartella() throws Exception{
     	File file= new File(INPUT_DIR);
     	File[] fileArray = file.listFiles();
-    	String corpo;
-    	String line;
+    	String corpo="";
+    	String line="";
     	
     	for (File f: fileArray) {
     		corpo= ""; 
@@ -101,7 +103,7 @@ If a document is indexed but not stored, you can search for it, but it won't be 
             document.add(new SortedDocValuesField("title", new BytesRef(titolo)));
 
             writer.addDocument(document);
-            writer.close();
+            writer.commit();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,6 +112,7 @@ If a document is indexed but not stored, you can search for it, but it won't be 
     public void CancellaDocumento(Term term) {
         try {
             this.writer.deleteDocuments(term);
+            this.writer.commit();
             this.writer.close();
         } catch (IOException e) {
             e.printStackTrace();

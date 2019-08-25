@@ -3,7 +3,7 @@ package it.uniroma3.IR.service;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import javax.swing.SortOrder;
+
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
@@ -17,23 +17,30 @@ import org.apache.lucene.search.SortedNumericSortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.springframework.context.annotation.Bean;
+
 
 public class Interrogatore {
 	
 //passa le query all'indicizzatore
 	
-	private static final String INDEX_DIR= "static/indexedFiles";
+	private static final String INDEX_DIR= "src/main/resources/static/indexedFiles";
 	private static final int NUM_RESULT= 100;
 	
 	private IndexSearcher searcher;
 	private Risposta risposta; 
 	
-	public Interrogatore () throws Exception{
+
+	public Interrogatore (){
 		// creo il ricercatore di Lucene, che ricerca sopra a ogni indexReader
-		 this.searcher = creaSearcher();
+		 try {
+			this.searcher = creaSearcher();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
+	@Bean
 	public void searchInContent(String testoRicerca) throws Exception {
 		
 		//creo la query di ricerca 
@@ -47,7 +54,7 @@ public class Interrogatore {
 		this.risposta= new Risposta(hits);
 	}
 	
-	
+	@Bean
 	private IndexSearcher creaSearcher() throws IOException{
 		
 		Directory dir= FSDirectory.open(Paths.get(INDEX_DIR));
@@ -59,7 +66,7 @@ public class Interrogatore {
 		IndexSearcher searcher= new IndexSearcher (reader);
 		return searcher;
 	}
-	
+	@Bean
 	public Risposta getRisposta () {
 		return this.risposta;
 	}
