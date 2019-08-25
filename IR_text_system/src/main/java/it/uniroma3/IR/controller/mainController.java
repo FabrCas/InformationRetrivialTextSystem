@@ -28,6 +28,11 @@ public class mainController {
 	public String toDoc4() {
 		return "DOC4.html";
 	}
+	
+	@RequestMapping("/home")
+	public String toHome(){
+		return "index.html";
+	}
 
 
 }
