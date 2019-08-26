@@ -20,15 +20,19 @@ public class Risposta {
 		
 	}
 	public List<String> toString1() {
+		
 		System.out.println("Creazione risultati ricerca...");
 		List<String> messaggioRicerca= new ArrayList<String>();
+		
 		messaggioRicerca.add("numero di riscontri: " + this.risultatiRicerca.totalHits.value+ "\n");
 		int risNum= 0;
+		/*
 		for (ScoreDoc score:risultatiRicerca.scoreDocs) {
 			messaggioRicerca.add("risultato n°"+risNum+": "+
-		 "[Documento "+ score.doc+ "] ->" + score.toString());
+		 "[Documento "+ score.doc+ "] ->" + score.toString()+ "| | ");
 			risNum++;
 		}
+		*/
 		return messaggioRicerca;
 	}
 	
