@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="ISO-8859-1">
+<title>Risultati ricerca</title>
+</head>
+<body>
+<h1>Risultati della ricerca:</h1>
+<ul style="list-style-type:none;">
+			<!-- finch� c'� un prof stampa una lista puntata -->
+			<li th:each="risultato: ${risultati}"><span
+				th:text=${risultato}> </span>
+			<li>
+		</ul>
+</body>
+</html>

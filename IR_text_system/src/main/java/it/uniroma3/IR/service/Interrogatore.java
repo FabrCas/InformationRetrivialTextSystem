@@ -11,9 +11,6 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
-import org.apache.lucene.search.SortedNumericSortField;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -48,8 +45,8 @@ public class Interrogatore {
 		Query query= qp.parse(testoRicerca);
 		
 		//cerco l'indice (ordinato) 
-		Sort sort= new Sort (new SortedNumericSortField("title", SortField.Type.STRING));
-		TopDocs hits= this.searcher.search(query,NUM_RESULT, sort);
+		//Sort sort= new Sort (new SortedNumericSortField("title", SortField.Type.STRING));
+		TopDocs hits= this.searcher.search(query,NUM_RESULT);
 		
 		this.risposta= new Risposta(hits);
 	}

@@ -6,20 +6,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.SortedDocValuesField;
+
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.BytesRef;
 import org.springframework.stereotype.Component;
 
 /*tutti i file nella cartella "inputFiles" verranno indicizzati.
@@ -100,7 +101,6 @@ If a document is indexed but not stored, you can search for it, but it won't be 
             document.add(new StringField("title", titolo, Field.Store.YES));
             document.add(new TextField("contents", corpo, Field.Store.YES));
             document.add(new StringField("path", file.toString(), Field.Store.YES));
-            document.add(new SortedDocValuesField("title", new BytesRef(titolo)));
 
             writer.addDocument(document);
             writer.commit();

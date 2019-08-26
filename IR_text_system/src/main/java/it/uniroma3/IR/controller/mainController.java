@@ -2,11 +2,14 @@ package it.uniroma3.IR.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.IR.service.Indicizzatore;
 import it.uniroma3.IR.service.Interrogatore;
+import it.uniroma3.IR.service.Risposta;
 
 @Controller
 public class mainController {
@@ -25,12 +28,16 @@ public class mainController {
 		return "conferma.html";
 	}
 	
+	
 	//ricerca nei documenti
 	@RequestMapping(value="/toFind", method= RequestMethod.POST)
-	public String toFind() throws Exception{
-		//TODO
-		return "dddf";
+	public String toFind(@RequestParam("search_input") String ricerca, Model model) throws Exception{
+		this.interrogatore.searchInContent(ricerca);
+		Risposta risp= this.interrogatore.getRisposta();
+		model.addAttribute("risultati", risp.toString1());
+		return "risultatiRicerca.html";
 	}
+	
 	
 	//vista dei documenti 
 	@RequestMapping(value="/toDoc1")

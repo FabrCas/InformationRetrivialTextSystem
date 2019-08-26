@@ -33,13 +33,9 @@ Premi sotto per indicizzare i documenti (operazone di aggiornamento)
 <form id="indexing" th:action="@{/toIndex}" method="POST">
 <input type="submit" name="index" value="procedi"/>
 </form>
-
-<h2>
-Ricerca:
-</h2>
+<br>
 <form id="search_form" th:action="@{/toFind}" method="POST">
-	<label>Ricerca <input id="search_input" size="30" name="keyword" /></label>
-	<input type="image" src="/src/main/resources/static/images/magnifying_glass.png" />
+	<label>Ricerca <input id="search_input" size="30" name="search_input" /></label>
 </form>
 </div>
 </body>
