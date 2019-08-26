@@ -44,7 +44,7 @@ public class Interrogatore {
 	public void searchInContent(String testoRicerca) throws Exception {
 		
 		//creo la query di ricerca 
-		QueryParser qp= new QueryParser("contenuto", new StandardAnalyzer());
+		QueryParser qp= new QueryParser("contents", new StandardAnalyzer());
 		Query query= qp.parse(testoRicerca);
 		
 		//cerco l'indice (ordinato) 
