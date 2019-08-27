@@ -48,7 +48,7 @@ public class Interrogatore {
 		//Sort sort= new Sort (new SortedNumericSortField("title", SortField.Type.STRING));
 		TopDocs hits= this.searcher.search(query,NUM_RESULT);
 		
-		this.risposta= new Risposta(hits);
+		this.risposta= new Risposta(hits, testoRicerca, searcher);
 	}
 	
 	
