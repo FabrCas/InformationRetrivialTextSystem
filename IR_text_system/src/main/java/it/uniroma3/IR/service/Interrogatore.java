@@ -16,6 +16,9 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 
+/*cancellare @Component se non sono stati indicizzati i documenti, poichè è
+ *  Spring non può inizializzare l'interrogatore
+ */
 @Component
 public class Interrogatore {
 	

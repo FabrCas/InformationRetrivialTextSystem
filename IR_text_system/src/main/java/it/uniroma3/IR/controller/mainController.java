@@ -17,6 +17,9 @@ public class mainController {
 	@Autowired(required=true)
 	private Indicizzatore indicizzatore;
 	
+	/*cancellare @Autowired se non sono stati indicizzati i documenti, poichè è
+	 *  Spring non può inizializzare l'interrogatore
+	 */
 	@Autowired
 	private Interrogatore interrogatore;
 	
