@@ -1,5 +1,7 @@
 package it.uniroma3.IR.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.IR.model.RisultatoDoc;
 import it.uniroma3.IR.service.Indicizzatore;
 import it.uniroma3.IR.service.Interrogatore;
 import it.uniroma3.IR.service.Risposta;
@@ -37,32 +40,34 @@ public class mainController {
 	public String toFind(@RequestParam("search_input") String ricerca, Model model) throws Exception{
 		this.interrogatore.searchInContent(ricerca);
 		Risposta risp= this.interrogatore.getRisposta();
-		model.addAttribute("risultati", risp.toString1());
+		model.addAttribute("hits",risp.totaleHits());
+		List<RisultatoDoc> listaRisultati=risp.risultatiDocumenti();
+		model.addAttribute("listaRisultati", listaRisultati);
 		return "risultatiRicerca.html";
 	}
 	
 	
 	//vista dei documenti 
-	@RequestMapping(value="/toDoc1")
+	@RequestMapping(value="/toDOC1-La clonazione di Dolly")
 	public String toDoc1() {
-		return "DOC1.html";
+		return "DOC1-La clonazione di Dolly.html";
 	}
 	
-	@RequestMapping(value="/toDoc2")
+	@RequestMapping(value="/toDOC2-VR")
 	public String toDoc2() {
-		return "DOC2.html";
+		return "DOC2-VR.html";
 	}
 
 	
-	@RequestMapping(value="/toDoc3")
+	@RequestMapping(value="/toDOC3-Empire State Building")
 	public String toDoc3() {
-		return "DOC3.html";
+		return "DOC3-Empire State Building.html";
 	}
 
 	
-	@RequestMapping(value="/toDoc4")
+	@RequestMapping(value="/toDOC4- Articolo 11 e 13")
 	public String toDoc4() {
-		return "DOC4.html";
+		return "DOC4- Articolo 11 e 13.html";
 	}
 	
 	@RequestMapping("/home")

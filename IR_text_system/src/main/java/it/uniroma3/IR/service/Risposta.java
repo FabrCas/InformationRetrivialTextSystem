@@ -3,11 +3,14 @@ package it.uniroma3.IR.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+
+import it.uniroma3.IR.model.RisultatoDoc;
 
 //classe che crea le possibili risposte per la ricerca 
 public class Risposta {
@@ -16,23 +19,22 @@ public class Risposta {
 	private String termineRicercato;
 	private IndexSearcher searcher;
 	
-	public Risposta (TopDocs hits, String testo, IndexSearcher searcher) {
+	public Risposta (TopDocs hits, String testoRicerca, IndexSearcher searcher) {
 		this.risultatiRicerca= hits;
-		this.termineRicercato= testo;
+		this.termineRicercato= testoRicerca;
 		this.searcher= searcher;
 	}
 	
-	public List<String> toString2(){
-		return null;
-		
+	public String totaleHits() {
+		return "numero di documenti in cui ci sono stati riscontri per [" + this.termineRicercato
+				+ "]: " + this.risultatiRicerca.totalHits.value+ "\n";
 	}
-	public List<String> toString1(){
+	
+	
+	public List<RisultatoDoc> risultatiDocumenti(){
 		
 		System.out.println("Creazione risultati ricerca...");
-		List<String> messaggioRicerca= new ArrayList<String>();
-		
-		messaggioRicerca.add("numero di documenti in cui ci sono stati riscontri per [" + this.termineRicercato
-				+ "]: " + this.risultatiRicerca.totalHits.value+ "\n");
+		List<RisultatoDoc> messaggioRicerca= new ArrayList<RisultatoDoc>();
 		
 		/*
 		 * int risNum= 0;
@@ -42,11 +44,15 @@ public class Risposta {
 			risNum++;
 		}
 		*/
+		RisultatoDoc risultatoParziale;
 		for (ScoreDoc score: risultatiRicerca.scoreDocs) {
 			try {
+				risultatoParziale= new RisultatoDoc();
 				Document d= this.searcher.doc(score.doc);
-				messaggioRicerca.add(d.get("title") +  ", valori ricerca: " +score.toString()) ;
-				
+				risultatoParziale.setTitolo(getNomeDocumento(d.get("title")));
+				risultatoParziale.setScore(modficaScore((score.toString())));
+				risultatoParziale.setPaginahtml(getPagina(d.get("title")));
+				messaggioRicerca.add(risultatoParziale);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -54,8 +60,31 @@ public class Risposta {
 		return messaggioRicerca;
 	}
 	
+	private String getPagina(String nomeFile) {
+		String nomePagina;
+		nomePagina= nomeFile.replace(".txt", ".html");
+		System.out.println(nomePagina);
+		return nomePagina;
+	}
 	
-	//serie di metodi toString...
+	private String getNomeDocumento(String titolo) {   //ovvero senza il .txt
+		String nomeDocumento;
+		nomeDocumento= titolo.replace(".txt", "");
+		System.out.println(nomeDocumento);
+		return nomeDocumento;
+	}
+	
+	private String modficaScore(String score) {
+		String scoreMod="";
+		Scanner scanner = new Scanner(score);
+		if(scanner.hasNext())
+			scoreMod=scoreMod + scanner.next() + " ";
+		if(scanner.hasNext())
+			scoreMod=scoreMod + scanner.next();
+		scanner.close();
+		
+		return scoreMod;
+	}
 	
 	
 }

@@ -7,10 +7,14 @@
 </head>
 <body>
 	<h1>Risultati della ricerca:</h1>
+	<span th:text="${hits}"></span>
 	<ul style="list-style-type: none;">
 		<!-- finch� c'� un prof stampa una lista puntata -->
-		<li th:each="risultato: ${risultati}"><span th:text=${risultato}>
-		</span>
+		<li th:each="risultatoDoc: ${listaRisultati}">
+			<h4>
+				<a th:href="@{'/to'+${risultatoDoc.titolo}}"> <span th:text="${risultatoDoc.titolo}"></span></a>
+				<span th:text="${risultatoDoc.score}"> Score </span>
+			</h4>
 		<li>
 	</ul>
 	<div>
