@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocs;
@@ -41,7 +43,7 @@ public class Interrogatore {
 	}
 	
 	
-	public void searchInContent(String testoRicerca) throws Exception {
+	public void ricercaNormale(String testoRicerca) throws Exception {
 		
 		//creo la query di ricerca 
 		QueryParser qp= new QueryParser("contents", new StandardAnalyzer());
@@ -54,6 +56,16 @@ public class Interrogatore {
 		this.risposta= new Risposta(hits, testoRicerca, searcher);
 	}
 	
+	public void ricercaFuzzy(String testoRicerca) throws Exception {
+	
+		Term termineRicerca= new Term("contents",testoRicerca);
+		FuzzyQuery fuzzyQuery= new FuzzyQuery(termineRicerca);  //2° parametro int maxEdits, ovvero la massima edit distance (n. operazioni per trasformare termine ricerca in termine ricercato
+		/*massima edit distance = 2 (default)*/
+		TopDocs fuzzyHits= this.searcher.search(fuzzyQuery,NUM_RESULT);
+		
+		
+		this.risposta= new Risposta(fuzzyHits, testoRicerca, searcher);
+	}
 	
 	private IndexSearcher creaSearcher() throws IOException{
 		

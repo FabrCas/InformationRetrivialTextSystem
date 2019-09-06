@@ -38,7 +38,8 @@ public class mainController {
 	//ricerca nei documenti
 	@RequestMapping(value="/toFind", method= RequestMethod.POST)
 	public String toFind(@RequestParam("search_input") String ricerca, Model model) throws Exception{
-		this.interrogatore.searchInContent(ricerca);
+		// da sostituire con una ricerca fuzzy -> this.interrogatore.ricercaNormale(ricerca);
+		this.interrogatore.ricercaFuzzy(ricerca);
 		Risposta risp= this.interrogatore.getRisposta();
 		model.addAttribute("hits",risp.totaleHits());
 		List<RisultatoDoc> listaRisultati=risp.risultatiDocumenti();

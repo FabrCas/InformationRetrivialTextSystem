@@ -109,9 +109,10 @@ If a document is indexed but not stored, you can search for it, but it won't be 
         }
     }
     
-    public void CancellaDocumento(Term term) {
+    public void CancellaDocumento(String term) {
         try {
-            this.writer.deleteDocuments(term);
+        	Term termine= new Term(term);
+            this.writer.deleteDocuments(termine);
             this.writer.commit();
             this.writer.close();
         } catch (IOException e) {
