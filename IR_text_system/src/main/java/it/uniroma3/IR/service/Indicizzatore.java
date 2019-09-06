@@ -42,7 +42,7 @@ public class Indicizzatore {
 	
 	/*lucene's classes*/
     private Analyzer analyzer;
-    private IndexWriterConfig iwc;
+	private IndexWriterConfig iwc;
     private IndexWriter writer ; 
 
     public Indicizzatore() {
@@ -119,5 +119,9 @@ If a document is indexed but not stored, you can search for it, but it won't be 
             e.printStackTrace();
         }
     }
+    
+    public Analyzer getAnalyzer() {
+		return analyzer;
+	}
     
 }

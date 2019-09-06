@@ -39,11 +39,25 @@ public class mainController {
 	@RequestMapping(value="/toFind", method= RequestMethod.POST)
 	public String toFind(@RequestParam("search_input") String ricerca, Model model) throws Exception{
 		// da sostituire con una ricerca fuzzy -> this.interrogatore.ricercaNormale(ricerca);
+		this.interrogatore.setAnalyzer(this.indicizzatore.getAnalyzer());
 		this.interrogatore.ricercaFuzzy(ricerca);
+		
+		
+		
+		
+		
+		//totale risultati
 		Risposta risp= this.interrogatore.getRisposta();
 		model.addAttribute("hits",risp.totaleHits());
+		//forse intedevi...
+		List<String> possibiliParoleRicercate= risp.risultatiFuzzy();
+		for(String a: possibiliParoleRicercate)
+			System.out.println(a +"\n");
+		model.addAttribute("paroleTrovate", possibiliParoleRicercate);
+		//lista documenti con parola ricercata
 		List<RisultatoDoc> listaRisultati=risp.risultatiDocumenti();
 		model.addAttribute("listaRisultati", listaRisultati);
+		
 		return "risultatiRicerca.html";
 	}
 	

@@ -2,10 +2,16 @@ package it.uniroma3.IR.service;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
-
-
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.TokenSources;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
@@ -13,6 +19,7 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -31,8 +38,9 @@ public class Interrogatore {
 	
 	private IndexSearcher searcher;
 	private Risposta risposta; 
+	private Analyzer analyzer;
+	private IndexReader reader;
 	
-
 	public Interrogatore (){
 		// creo il ricercatore di Lucene, che ricerca sopra a ogni indexReader
 		 try {
@@ -62,9 +70,31 @@ public class Interrogatore {
 		FuzzyQuery fuzzyQuery= new FuzzyQuery(termineRicerca);  //2° parametro int maxEdits, ovvero la massima edit distance (n. operazioni per trasformare termine ricerca in termine ricercato
 		/*massima edit distance = 2 (default)*/
 		TopDocs fuzzyHits= this.searcher.search(fuzzyQuery,NUM_RESULT);
-		
-		
-		this.risposta= new Risposta(fuzzyHits, testoRicerca, searcher);
+
+
+		QueryScorer scorer = new QueryScorer(fuzzyQuery, "contents");
+		Highlighter highlighter= new Highlighter(scorer);
+
+		List<String> frammentiTesto= new ArrayList<String>();
+		String frammentoTesto;
+		if(testoRicerca.length()>=3) {
+			for (ScoreDoc score: fuzzyHits.scoreDocs) {
+				try {
+					Document doc = this.searcher.doc(score.doc);
+					String contenuto= doc.get("contents");
+					@SuppressWarnings("deprecation")
+					TokenStream tokestream= TokenSources.getAnyTokenStream(reader, score.doc, "contents", this.analyzer);
+					frammentoTesto= highlighter.getBestFragment(tokestream, contenuto);
+					frammentiTesto.add(frammentoTesto);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			this.risposta= new Risposta(fuzzyHits, testoRicerca, searcher,frammentiTesto );
+		}
+		else {
+			this.risposta= new Risposta(fuzzyHits, testoRicerca, searcher);
+		}
 	}
 	
 	private IndexSearcher creaSearcher() throws IOException{
@@ -72,7 +102,7 @@ public class Interrogatore {
 		Directory dir= FSDirectory.open(Paths.get(INDEX_DIR));
 		
 		//comunico all'interfaccia reader (che accede in ogni momento all'indice di Lucene) la directory con i token
-		IndexReader reader= DirectoryReader.open(dir);
+		this.reader= DirectoryReader.open(dir);
 		
 		//l'index searcher
 		IndexSearcher searcher= new IndexSearcher (reader);
@@ -83,45 +113,8 @@ public class Interrogatore {
 		return this.risposta;
 	}
 	
-	
-    /* Prima versione (old) 
-    public List<Document> RicercaInIndice(Query query) {
-        try {
-            IndexReader indexReader = DirectoryReader.open(memoryIndex);
-            IndexSearcher searcher = new IndexSearcher(indexReader);
-            TopDocs topDocs = searcher.search(query, 100);
-            List<Document> documents = new ArrayList<>();
-            for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-                documents.add(searcher.doc(scoreDoc.doc));
-            }
-
-            return documents;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-    
-    //versione polimorfa con ordinamento
-    
-    public List<Document> RicercaInIndice(Query query, Sort sort) {
-        try {
-            IndexReader indexReader = DirectoryReader.open(memoryIndex);
-            IndexSearcher searcher = new IndexSearcher(indexReader);
-            TopDocs topDocs = searcher.search(query, 10, sort);
-            List<Document> documents = new ArrayList<>();
-            for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
-                documents.add(searcher.doc(scoreDoc.doc));
-            }
-
-            return documents;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
-    */
+	public void setAnalyzer(Analyzer analyzer) {
+		this.analyzer = analyzer;
+	}
 	
 }

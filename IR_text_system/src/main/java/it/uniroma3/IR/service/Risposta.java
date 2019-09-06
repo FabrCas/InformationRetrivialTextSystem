@@ -18,11 +18,20 @@ public class Risposta {
 	private TopDocs risultatiRicerca;
 	private String termineRicercato;
 	private IndexSearcher searcher;
+	private List<String> frammentiTesto;
 	
 	public Risposta (TopDocs hits, String testoRicerca, IndexSearcher searcher) {
 		this.risultatiRicerca= hits;
 		this.termineRicercato= testoRicerca;
 		this.searcher= searcher;
+		this.frammentiTesto= null;
+	}
+	
+	public Risposta (TopDocs hits, String testoRicerca, IndexSearcher searcher, List<String> frammentiTesto) {
+		this.risultatiRicerca= hits;
+		this.termineRicercato= testoRicerca;
+		this.searcher= searcher;
+		this.frammentiTesto= frammentiTesto;
 	}
 	
 	public String totaleHits() {
@@ -30,9 +39,34 @@ public class Risposta {
 				+ "]: " + this.risultatiRicerca.totalHits.value+ "\n";
 	}
 	
-	
+	public List<String> risultatiFuzzy() {
+		List<String> risultati= new ArrayList<String>();
+		String temp, temp1, temp2;
+		boolean trovato= false;
+		if(this.frammentiTesto!=null) {
+			for(String frammento:frammentiTesto ) {
+				trovato= false;
+				Scanner scanner = new Scanner(frammento);
+				while(scanner.hasNext() && !trovato ) {
+					temp=scanner.next();
+					if((temp.contains("<B>")) && (temp.contains("</B>"))) {
+						trovato= true;
+						temp1= temp.replace("<B>", "");
+						temp2= temp1.replace("</B>","");
+						if((!(temp2.equals(this.termineRicercato))) && (!(risultati.contains(temp2))))
+							risultati.add(temp2);
+					}
+				}
+				scanner.close();
+			}
+			return risultati;
+		}
+		else {
+			return risultati;
+		}
+	}
+
 	public List<RisultatoDoc> risultatiDocumenti(){
-		
 		System.out.println("Creazione risultati ricerca...");
 		List<RisultatoDoc> messaggioRicerca= new ArrayList<RisultatoDoc>();
 		
@@ -60,10 +94,10 @@ public class Risposta {
 		return messaggioRicerca;
 	}
 	
+	
 	private String getPagina(String nomeFile) {
 		String nomePagina;
 		nomePagina= nomeFile.replace(".txt", ".html");
-		System.out.println(nomePagina);
 		return nomePagina;
 	}
 	
