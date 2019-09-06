@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="ISO-8859-1">
+<title>Conferma Ricerca</title>
+</head>
+<body>
+	<h1>Forse volevi cercare:</h1>
+	<ul style="list-style-type: none;">
+		<!-- finch� c'� un prof stampa una lista puntata -->
+		<li th:each="parola: ${paroleTrovate}">
+			<h4>
+				<span th:text="${parola}"></span>
+			</h4>
+		<li>
+	</ul>
+	<div>
+		<h1>Risultati della ricerca:</h1>
+	<span th:text="${hits}"></span>
+	<ul style="list-style-type: none;">
+		<!-- finch� c'� un prof stampa una lista puntata -->
+		<li th:each="risultatoDoc: ${listaRisultati}">
+			<h4>
+				<a th:href="@{'/to'+${risultatoDoc.titolo}}"> <span th:text="${risultatoDoc.titolo}"></span></a>
+				<span th:text="${risultatoDoc.score}"> Score </span>
+			</h4>
+		<li>
+	</ul>
+	</div>
+	<div>
+		<a href="/home"> home </a>
+	</div>
+
+</body>
+</html>

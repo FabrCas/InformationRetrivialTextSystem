@@ -41,24 +41,27 @@ public class mainController {
 		// da sostituire con una ricerca fuzzy -> this.interrogatore.ricercaNormale(ricerca);
 		this.interrogatore.setAnalyzer(this.indicizzatore.getAnalyzer());
 		this.interrogatore.ricercaFuzzy(ricerca);
-		
-		
-		
-		
-		
-		//totale risultati
 		Risposta risp= this.interrogatore.getRisposta();
-		model.addAttribute("hits",risp.totaleHits());
-		//forse intedevi...
 		List<String> possibiliParoleRicercate= risp.risultatiFuzzy();
+		List<RisultatoDoc> listaRisultati=risp.risultatiDocumenti();
 		for(String a: possibiliParoleRicercate)
 			System.out.println(a +"\n");
-		model.addAttribute("paroleTrovate", possibiliParoleRicercate);
-		//lista documenti con parola ricercata
-		List<RisultatoDoc> listaRisultati=risp.risultatiDocumenti();
-		model.addAttribute("listaRisultati", listaRisultati);
 		
-		return "risultatiRicerca.html";
+		if(possibiliParoleRicercate.isEmpty()) {  //parola trovata così come è stata digitata
+			//n. totale risultati
+			model.addAttribute("hits",risp.totaleHits());
+			//riscontri sui documenti
+			model.addAttribute("listaRisultati", listaRisultati);
+			return "risultatiRicerca.html";
+		}
+		else {
+			//errore di sintassi, altri riscontri trovati
+			model.addAttribute("paroleTrovate", possibiliParoleRicercate);
+			model.addAttribute("hits",risp.totaleHits());
+			model.addAttribute("listaRisultati", listaRisultati);
+			
+			return "confermaRicerca.html";
+		}
 	}
 	
 	
